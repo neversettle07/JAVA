@@ -1,0 +1,68 @@
+1. Write a Java program to display information about all columns in the DONAR table using ResultSetMetaData.
+---------------( NEED TO CREATE DATABASE )----------------------------------------------------------------
+
+import java.sql.*;
+
+public class ColumnInfoDemo {
+    
+    public static void main(String[] args) {
+        
+        String url = "jdbc:mysql://localhost:3306/mydatabase";
+        String username = "myusername";
+        String password = "mypassword";
+        
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            
+            String sql = "SELECT * FROM DONAR";
+            
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+                
+
+                ResultSetMetaData meta = rs.getMetaData();
+          
+                int numColumns = meta.getColumnCount();
+
+                for (int i = 1; i <= numColumns; i++) {
+                    System.out.println("Column " + i + ":");
+                    System.out.println("  Name: " + meta.getColumnName(i));
+                    System.out.println("  Type: " + meta.getColumnTypeName(i));
+                    System.out.println("  Size: " + meta.getColumnDisplaySize(i));
+                    System.out.println("  Nullable: " + meta.isNullable(i));
+                    System.out.println();
+                }
+                
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+    }
+    
+}
+----------------------------------------------------------------------------------------------
+2. Write a Java program to create LinkedList of integer objects and perform the following:
+i. Add element at first position
+ii. Delete last element
+iii. Display the size of link list
+
+import java.util.LinkedList;
+public class LinkedListExample {
+public static void main(String[] args) {
+
+LinkedList<Integer> list = new LinkedList<>();
+
+list.add(10);
+list.add(20);
+list.add(30);
+
+list.addFirst(5);
+
+list.removeLast();
+
+System.out.println("Size of LinkedList: " + list.size());
+
+System.out.println("Elements of LinkedList: " + list);
+}
+}

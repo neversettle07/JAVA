@@ -1,0 +1,49 @@
+----------------------------------Q.1---------------------
+1.Write a java program to create a TreeSet, add some colors (String) and print out the content of TreeSet in ascending order.
+
+import java.util.*;
+public class TreeSetDemo {
+public static void main(String[] args) {
+TreeSet<String> colors = new TreeSet<String>();
+colors.add("Red");
+colors.add("Green");
+colors.add("Blue");
+colors.add("Yellow");
+System.out.println("Colors in ascending order:");
+for (String color : colors) {
+System.out.println(color);
+}
+}
+}
+------------------------Q.2------------------------------
+
+2.Write a Java program to accept the details of emp (TNo, TName, Subject). Insert at least 5 Records into Teacher Table and display the details of Teacher who is teaching “JAVA” Subject. (Use PreparedStatement Interface)
+
+import java.sql.*;
+class Q7
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			Class.forName("org.postgres.Driver");
+			Connection con=DriverManager.getConnection("jdbc:postgres;teacher1:","postgres","psql");
+
+			System.out.println("Details of teacher who teaches Java");
+			PrepareStatement selectStmt = con.prepareStatement("Select * from teacher WHERE subject = ?");
+			selectStmt.setString(3,"Java");
+
+			Result rs=selectStmt.executeQuery();
+			
+			while(rs.next())
+			{
+			System.out.println("Teacher No:"+rs.getInt("Tno")+"\tName:"+rs.getString("Tname"));
+			}
+			con.close();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+}
